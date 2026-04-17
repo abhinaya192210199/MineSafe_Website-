@@ -1,0 +1,109 @@
+/* ===== GLOBAL RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #2b2b2b;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+    width: 100%;
+    padding: 30px 60px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.small-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* ===== RISK CIRCLE ===== */
+.risk-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 12px solid #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin: auto;
+}
+
+.risk-label {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #4CAF50;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(76,175,80,0.3);
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ===== ALERTS ===== */
+.alert-item {
+    padding: 15px;
+    border-radius: 12px;
+    background: #f8f9fa;
+    margin-bottom: 12px;
+}
+
+/* ===== HEADER ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: #ff4d4d;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+}
