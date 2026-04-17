@@ -1,70 +1,40 @@
 <?php
 session_start();
+include("../includes/db.php");
 
-if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
+// ✅ HANDLE BOTH APP + WEBSITE
+
+// Worker
+if (isset($_SESSION['name'])) {
+    $worker = $_SESSION['name']; // website
+} else {
+    $worker = $_POST['worker_id'] ?? ''; // app
+}
+
+// Data
+$hazard = $_POST['hazard_type'] ?? '';
+$description = $_POST['description'] ?? '';
+
+// 🔴 VALIDATION
+if ($worker == "" || $hazard == "" || $description == "") {
+    echo "missing";
     exit();
 }
 
-include("includes/db.php");
+// ✅ INSERT (MATCH YOUR DB)
+$sql = "INSERT INTO hazards (worker_id, hazard_type, description, status)
+VALUES ('$worker', '$hazard', '$description', 'Pending')";
 
-$message = "";
+if ($conn->query($sql)) {
 
-if(isset($_POST['submit'])){
-
-    // ✅ Use correct column (worker_id)
-    $worker_id = $_SESSION['user_id'];
-
-    $type = $_POST['hazard_type'];
-    $desc = $_POST['description'];
-
-    // ✅ Correct query
-    $sql = "INSERT INTO hazards (worker_id, hazard_type, description) 
-            VALUES ('$worker_id', '$type', '$desc')";
-
-    if($conn->query($sql)){
-        $message = "Hazard reported successfully!";
+    // ✅ WEBSITE REDIRECT
+    if (isset($_SESSION['name'])) {
+        header("Location: ../dashboard.php");
     } else {
-        $message = "Error: " . $conn->error;
+        echo "success"; // app response
     }
+
+} else {
+    echo "error";
 }
-
-include("layout.php");
 ?>
-
-<h3 class="fw-bold mb-4">⚠ Report Hazard</h3>
-
-<?php if($message != ""){ ?>
-<div class="alert alert-success"><?php echo $message; ?></div>
-<?php } ?>
-
-<div class="card p-4">
-
-<form method="POST">
-
-<label class="fw-bold">Hazard Type</label>
-
-<select name="hazard_type" class="form-control mb-3" required>
-<option value="">Select Hazard</option>
-<option>Gas Leak</option>
-<option>Broken Equipment</option>
-<option>Blocked Tunnel</option>
-<option>Unsafe Machinery</option>
-<option>Electrical Risk</option>
-</select>
-
-<label class="fw-bold">Description</label>
-
-<textarea name="description" class="form-control mb-3" rows="4" placeholder="Describe the hazard..." required></textarea>
-
-<button name="submit" class="btn btn-primary w-100 fw-bold">
-Submit Hazard
-</button>
-
-</form>
-
-</div>
-
-</div>
-</body>
-</html>
